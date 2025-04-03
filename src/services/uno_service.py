@@ -41,3 +41,12 @@ class UnoService:
                     self.stack = i
                     self.player2.remove(i)
                     self.turn = "player1"
+    
+    def draw_a_card(self):
+        card = self.deck.pop()
+        if self.turn == "player1":
+            self.player1.append(card)
+            self.turn = "player2"
+        else:
+            self.player2.append(card)
+            self.turn = "player1"

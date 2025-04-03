@@ -41,10 +41,13 @@ class UI:
         self._entry = ttk.Entry(self._root)
         self._entry.pack()
 
-        button = ttk.Button(self._root, text="Play card", command=self._handle_button_click)
+        button = ttk.Button(self._root, text="Play card", command=self._handle_button_click_play)
         button.pack()
 
-    def _handle_button_click(self):
+        button = ttk.Button(self._root, text="Draw a card", command=self._handle_button_click_draw)
+        button.pack()
+
+    def _handle_button_click_play(self):
         entry = self._entry.get()
         self.service.play_card(entry)
         self.update_view()
@@ -57,3 +60,7 @@ class UI:
         self.player2_label.config(text=self.service.player2)
 
         self.turn.config(text=self.service.turn)
+    
+    def _handle_button_click_draw(self):
+        self.service.draw_a_card()
+        self.update_view()
