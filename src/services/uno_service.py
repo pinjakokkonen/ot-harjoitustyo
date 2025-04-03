@@ -7,13 +7,19 @@ class UnoService:
         self.player2 = []
         self.stack = []
         self.turn = "player1"
+        self.actions = ["reverse", "skip", "draw two", "wild", "wild draw four"]
 
     def create_deck(self):
-        numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         colors = ["green", "red", "blue", "yellow"]
         for i in numbers:
             for j in colors:
                 self.deck.append((i,j))
+        random.shuffle(self.deck)
+        self.stack = self.deck.pop()
+        
+        for i in self.actions:
+            self.deck.append(i)
         random.shuffle(self.deck)
 
     def deal_cards(self):
@@ -27,20 +33,26 @@ class UnoService:
         self.deal_cards()
     
     def play_card(self, card):
+        action_card = True
+        if card not in self.actions:
+            card = (card[0], card[2:])
+            action_card = False
         if self.turn == "player1":
-            play = (int(card[0]), card[2:])
             for i in self.player1:
-                if i == play:
+                if i == card:
                     self.stack = i
                     self.player1.remove(i)
                     self.turn = "player2"
+                    if action_card:
+                        self.play_action_card(i)
         else:
-            play = (int(card[0]), card[2:])
             for i in self.player2:
-                if i == play:
+                if i == card:
                     self.stack = i
                     self.player2.remove(i)
                     self.turn = "player1"
+                    if action_card:
+                        self.play_action_card(i)
     
     def draw_a_card(self):
         card = self.deck.pop()
@@ -50,3 +62,31 @@ class UnoService:
         else:
             self.player2.append(card)
             self.turn = "player1"
+    
+    def play_action_card(self, card):
+        if card == "reverse" or card == "skip":
+            if self.turn == "player1":
+                self.turn = "player2"
+            else:
+                self.turn = "player1"
+        elif card == "draw two":
+            if self.turn == "player1":
+                for i in range(2):
+                    draw = self.deck.pop()
+                    self.player1.append(draw)
+            else:
+                for i in range(2):
+                    draw = self.deck.pop()
+                    self.player2.append(draw)
+        elif card == "wild draw four":
+            if self.turn == "player1":
+                for i in range(4):
+                    draw = self.deck.pop()
+                    self.player1.append(draw)
+            else:
+                for i in range(4):
+                    draw = self.deck.pop()
+                    self.player2.append(draw)
+        else:
+            # wild
+            pass
