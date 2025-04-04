@@ -7,7 +7,7 @@ class UnoService:
         self.player2 = []
         self.stack = []
         self.turn = "player1"
-        self.actions = ["reverse", "skip", "draw two", "wild", "wild draw four"]
+        self.actions = ["r", "s", "d", "wild", "wild draw four"]
 
     def create_deck(self):
         numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -19,7 +19,11 @@ class UnoService:
         self.stack = self.deck.pop()
         
         for i in self.actions:
-            self.deck.append(i)
+            if i in self.actions[:3]:
+                for j in colors:
+                    self.deck.append((i,j))
+            else:
+                self.deck.append(i)
         random.shuffle(self.deck)
 
     def deal_cards(self):
@@ -34,9 +38,13 @@ class UnoService:
     
     def play_card(self, card):
         action_card = True
-        if card not in self.actions:
-            card = (card[0], card[2:])
+        if card[0] not in self.actions:
             action_card = False
+        if card not in self.actions[3:]:
+            card = (card[0], card[2:])
+        else:
+            action_card = True
+        print(action_card, card)
         if self.turn == "player1":
             for i in self.player1:
                 if i == card:
@@ -64,12 +72,12 @@ class UnoService:
             self.turn = "player1"
     
     def play_action_card(self, card):
-        if card == "reverse" or card == "skip":
+        if card[0] == "r" or card[0] == "s":
             if self.turn == "player1":
                 self.turn = "player2"
             else:
                 self.turn = "player1"
-        elif card == "draw two":
+        elif card[0] == "d":
             if self.turn == "player1":
                 for i in range(2):
                     draw = self.deck.pop()

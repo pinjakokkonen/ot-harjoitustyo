@@ -47,6 +47,9 @@ class UI:
         button = ttk.Button(self._root, text="Draw a card", command=self._handle_button_click_draw)
         button.pack()
 
+        actions = ttk.Label(self._root, text="r=reverse, s=skip, d=draw two")
+        actions.pack()
+
     def _handle_button_click_play(self):
         entry = self._entry.get()
         self.service.play_card(entry)
