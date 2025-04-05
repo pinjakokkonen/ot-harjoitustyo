@@ -6,6 +6,8 @@ Toteutan **UNO** *korttipelin*.
 
 [vaatimusmäärittely](https://github.com/pinjakokkonen/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
 
+[arkkitehtuurikuvaus](https://github.com/pinjakokkonen/ot-harjoitustyo/blob/main/dokumentaatio/arkkitehtuuri.md)
+
 [työaikakirjanpito](https://github.com/pinjakokkonen/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
 
 [changelog](https://github.com/pinjakokkonen/ot-harjoitustyo/blob/main/dokumentaatio/changelog.md)
@@ -51,3 +53,11 @@ poetry run invoke coverage-report
 ```
 
 Raportti generoituu _htmlcov_-hakemistoon.
+
+### Pylint
+
+Tiedoston .pylintrc määrittelemät tarkistukset voi suorittaa komennolla:
+
+```bash
+poetry run invoke lint
+```
