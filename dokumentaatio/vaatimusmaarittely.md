@@ -10,10 +10,10 @@ Käyttäjärooleja tai kirjautumista ei pelissä ole.
 
 ## Perusversion tarjoama toiminnallisuus
 
-- Peliä pystyy pelaamaan numerokorteilla
-- Pelissä on myös erikoiskortteja
-- Pelissä on valikko
-  - Pelaaja pystyy aloittamaan uuden pelin ja keskeyttämään nykyisen
+- Peliä pystyy pelaamaan numerokorteilla TEHTY
+- Pelissä on nostakortti toiminnallisuus TEHTY
+- Pelissä on myös erikoiskortteja TEHTY
+- Vääriä kortteja ei pysty pelaamaan
 - Pelissä on UNO nappi
 
 ## Jatkokehitysideoita
@@ -21,7 +21,8 @@ Käyttäjärooleja tai kirjautumista ei pelissä ole.
 Perusversion jälkeen järjestelmää täydennetään ajan salliessa esim. seuraavilla toiminnallisuuksilla:
 
 - Peliin pystyy osallistua useampi kuin kaksi pelaajaa
+- Pelissä on valikko
+  - Pelaaja pystyy aloittamaan uuden pelin ja keskeyttämään nykyisen
 - Säännöt saa valikosta näkyviin
-- Vääriä kortteja ei pysty pelaamaan
 - Pelistä pystyy valitsemaan erilaisia versioita
 - Pelissä on painike korttipakan sekoittamiselle, jos se loppuu kesken
