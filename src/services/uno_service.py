@@ -47,17 +47,11 @@ class UnoService:
         if self.turn == "player1":
             for i in self.player1:
                 if i == card:
-                    self.stack = i
-                    self.player1.remove(i)
-                    self.turn = "player2"
-                    self.check_action_card(action_card, i)
+                    self.continue_to_play(action_card, i)
         else:
             for i in self.player2:
                 if i == card:
-                    self.stack = i
-                    self.player2.remove(i)
-                    self.turn = "player1"
-                    self.check_action_card(action_card, i)
+                    self.continue_to_play(action_card, i)
 
     def draw_a_card(self):
         card = self.deck.pop()
@@ -102,3 +96,35 @@ class UnoService:
             self.turn = "player2"
         else:
             self.turn = "player1"
+
+    def check_colors(self, color):
+        if color == self.stack[1]:
+            return True
+        return False
+
+    def check_number(self, number):
+        if number == self.stack[0]:
+            return True
+        return False
+
+    def continue_to_play(self, action_card, i):
+        if self.turn == "player1":
+            if action_card is False:
+                if self.check_colors(i[1]) or self.check_number(i[0]):
+                    pass
+                else:
+                    return
+            self.stack = i
+            self.player1.remove(i)
+            self.turn = "player2"
+            self.check_action_card(action_card, i)
+        else:
+            if action_card is False:
+                if self.check_colors(i[1]) or self.check_number(i[0]):
+                    pass
+                else:
+                    return
+            self.stack = i
+            self.player2.remove(i)
+            self.turn = "player1"
+            self.check_action_card(action_card, i)
