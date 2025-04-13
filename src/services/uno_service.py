@@ -103,28 +103,20 @@ class UnoService:
         return False
 
     def check_number(self, number):
-        if number == self.stack[0]:
+        if number == self.stack[0] or self.stack in self.actions[3:]:
             return True
         return False
 
     def continue_to_play(self, action_card, i):
         if self.turn == "player1":
-            if action_card is False:
-                if self.check_colors(i[1]) or self.check_number(i[0]):
-                    pass
-                else:
-                    return
-            self.stack = i
-            self.player1.remove(i)
-            self.turn = "player2"
-            self.check_action_card(action_card, i)
+            if self.check_colors(i[1]) or self.check_number(i[0]) or i in self.actions[3:]:
+                self.stack = i
+                self.player1.remove(i)
+                self.turn = "player2"
+                self.check_action_card(action_card, i)
         else:
-            if action_card is False:
-                if self.check_colors(i[1]) or self.check_number(i[0]):
-                    pass
-                else:
-                    return
-            self.stack = i
-            self.player2.remove(i)
-            self.turn = "player1"
-            self.check_action_card(action_card, i)
+            if self.check_colors(i[1]) or self.check_number(i[0]) or i in self.actions[3:]:
+                self.stack = i
+                self.player2.remove(i)
+                self.turn = "player1"
+                self.check_action_card(action_card, i)

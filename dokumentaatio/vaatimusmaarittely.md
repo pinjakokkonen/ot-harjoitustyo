@@ -13,7 +13,7 @@ Käyttäjärooleja tai kirjautumista ei pelissä ole.
 - Peliä pystyy pelaamaan numerokorteilla TEHTY
 - Pelissä on nostakortti toiminnallisuus TEHTY
 - Pelissä on myös erikoiskortteja TEHTY
-- Vääriä kortteja ei pysty pelaamaan
+- Vääriä kortteja ei pysty pelaamaan TEHTY
 - Pelissä on UNO nappi
 
 ## Jatkokehitysideoita
