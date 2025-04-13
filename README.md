@@ -1,6 +1,8 @@
 # Ohjelmistotekniikka, harjoitustyö
 
-Toteutan **UNO** *korttipelin*.
+Sovellus on **UNO** *korttipeli*, jota pystyy pelaamaan kaksi käyttäjää samalta näytöltä. 
+
+[viikon 5 release](https://github.com/pinjakokkonen/ot-harjoitustyo/releases/tag/viikko5)
 
 ## Dokumentaatio
 
