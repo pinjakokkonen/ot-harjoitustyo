@@ -11,3 +11,9 @@
 - Käyttäjä pystyy nostamaan uuden kortin
 - Käyttäjä pystyy pelaamaan myös erikoiskortteja
 - UnoService-luokan testausta jatkettu
+
+## Viikko 5
+
+- Käyttäjä ei pysty pelaamaan vääriä kortteja
+- UnoService luokasta testattu korttien nostaminen ja erikoiskorttien toimintaa
+- User entity luotu tulevaa tietokantaa varten

@@ -10,4 +10,7 @@
 | 3.4.  | 4 | lisää testejä, nosta kortti painike, alustavat erikoiskortit |
 | 4.4.  | 3 | värien lisäys erikoiskortteihin, pylint |
 | 5.4.  | 3 | alustava luokka-/palautuskaavio, testien muokkaus ja muu viimeistely |
-| yht   | 21| |
+|11.4.  | 2 | numerokorttien tarkastus |
+|13.4.  | 3 | erikoiskorttien tarkastus, lisää testejä |
+|       | 3 | tietokannan suunnittelua, sekvenssikaavio, viimeistely |
+| yht   | 29| |
