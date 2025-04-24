@@ -18,6 +18,6 @@ Play card nappia painamalla kortti voidaan pelata ja jos mitään korttia ei pys
 
 Villejä kortteja pelatessa pelaaja pystyy valitsemaan toisesta näkymästä värin:
 
-![värin valinta näkymä](./kuvat/game-choose-a-color-view.png.png)
+![värin valinta näkymä](./kuvat/game-choose-a-color-view.png)
 
 Värin pystyy valitsemaan painamalla haluttua väriä, jonka jälkeen näkymä palaa takaisin aloituksesta tuttuun.
