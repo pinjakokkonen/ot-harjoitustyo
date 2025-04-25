@@ -15,6 +15,10 @@ class TestUnoService(unittest.TestCase):
         self.assertEqual(len(self.uno_service.player1), 7)
         self.assertEqual(len(self.uno_service.player2), 7)
 
+    def test_start_game(self):
+        self.uno_service.start_game()
+        self.assertEqual(len(self.uno_service.deck), 39)
+
     def test_play_card(self):
         self.uno_service.stack = ("1", "red")
         self.uno_service.player1 = [("3", "red")]
@@ -38,7 +42,7 @@ class TestUnoService(unittest.TestCase):
         self.uno_service.draw_a_card()
         self.assertEqual(len(self.uno_service.player2), 8)
 
-    def test_play_action_card(self):
+    def test_play_action_card_wild_draw_four(self):
         self.test_create_deck()
         self.uno_service.player1 = [("r", "red"), ("s", "red"), ("wild"), ("wild draw four")]
         self.uno_service.player2 = [("d", "green")]
@@ -56,3 +60,9 @@ class TestUnoService(unittest.TestCase):
         self.assertEqual(self.uno_service.turn, "player2")
         self.uno_service.skip_turn()
         self.assertEqual(self.uno_service.turn, "player1")
+
+    def test_choose_color(self):
+        self.uno_service.stack = ("1", "red")
+        self.uno_service.choose_color("green")
+        self.assertEqual(self.uno_service.stack, ("-", "green"))
+        self.assertEqual(self.uno_service.turn, "player2")
