@@ -14,6 +14,7 @@ Käyttäjärooleja tai kirjautumista ei pelissä ole.
 - Pelissä on nostakortti toiminnallisuus TEHTY
 - Pelissä on myös erikoiskortteja TEHTY
 - Vääriä kortteja ei pysty pelaamaan TEHTY
+- Villejä kortteja pelatessa pystyy valitsemaan värin TEHTY
 - Pelissä on UNO nappi
 
 ## Jatkokehitysideoita

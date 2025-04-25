@@ -8,7 +8,7 @@ Aloitus näkymä, joka avautuu käynnistäessä:
 
 Ensimmäisenä näkyy korttipakka, johon kortit kuuluu pelata.
 
-Seuraavalla rivillä näkyy kummankin pelaajan kortit.
+Seuraavalla rivillä näkyy pelaajan kortit.
 
 Vastauskenttään kirjoitetaan, mikä kortti halutaan pelata ilman aaltosulkeita ja pelaajan vuoron näkee kentän yläpuolelta.
 
