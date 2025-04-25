@@ -2,13 +2,19 @@
 
 Sovellus on **UNO** *korttipeli*, jota pystyy pelaamaan kaksi käyttäjää samalta näytöltä. 
 
+## Releases
+
 [viikon 5 release](https://github.com/pinjakokkonen/ot-harjoitustyo/releases/tag/viikko5)
+
+[viikon 6 release](https://github.com/pinjakokkonen/ot-harjoitustyo/releases/tag/viikko6)
 
 ## Dokumentaatio
 
 [vaatimusmäärittely](https://github.com/pinjakokkonen/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
 
 [arkkitehtuurikuvaus](https://github.com/pinjakokkonen/ot-harjoitustyo/blob/main/dokumentaatio/arkkitehtuuri.md)
+
+[käyttöohje](https://github.com/pinjakokkonen/ot-harjoitustyo/blob/main/dokumentaatio/kayttoohje.md)
 
 [työaikakirjanpito](https://github.com/pinjakokkonen/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
 
