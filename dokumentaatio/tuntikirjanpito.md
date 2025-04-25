@@ -13,4 +13,9 @@
 |11.4.  | 2 | numerokorttien tarkastus |
 |13.4.  | 3 | erikoiskorttien tarkastus, lisää testejä |
 |       | 3 | tietokannan suunnittelua, sekvenssikaavio, viimeistely |
-| yht   | 29| |
+|23.4.  | 4 | erikoiskorteista pystyy valita pelattavan värin |
+|       | 1 | käyttöohje |
+|24.4.  | 1 | arkkitehtuurikuvauksen jatkamista |
+|25.4.  | 1 | käyttöliittymässä näkyy vain pelaajan omat kortit |
+|       | 3 | docstring dokumentointi, testaus ja muu viimeistely |
+| yht   | 39| |
