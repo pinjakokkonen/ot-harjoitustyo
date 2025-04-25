@@ -2,17 +2,27 @@ from tkinter import ttk
 from services.uno_service import UnoService
 
 class UI:
+    """Sovelluksen käyttöliittymästä vastaava luokka."""
+
     def __init__(self, root):
+        """Pohjustaa käyttöliittymästä vastaavan luokan.
+
+        Args:
+            root: Käyttöliittymän alustus
+            service: UnoService luokkaan viittaaminen
+        """
         self._root = root
         self.service = UnoService()
 
     def start(self):
+        """Pelin aloitus näkymän luominen."""
         self.view()
         self.service.start_game()
         self.playing_view()
         self.frame.pack()
     
     def view(self):
+        """Perusnäkymä, joka on aina esillä."""
         self.frame = ttk.Frame(self._root)
 
         self.first_line = ttk.Frame(self.frame)
@@ -33,6 +43,7 @@ class UI:
         self.player_label.pack(pady=20)
 
     def _handle_button_click_play(self):
+        """Huolehtii kortin pelaamisesta."""
         entry = self._entry.get()
         self.service.play_card(entry)
         if entry == "wild" or entry == "wild draw four":
@@ -45,11 +56,13 @@ class UI:
             self.update_view()
 
     def update_view(self):
+        """Päivittää näkymän."""
         self.middle_label.config(text=self.service.stack)
 
         self.card_view()
     
     def card_view(self):
+        """Päivittää näkymään oikean pelaajan kortit ja kumman vuoro on."""
         self.player.config(text=self.service.turn)
         if self.service.turn == "player1":
             self.player_label.config(text=self.service.player1)
@@ -59,13 +72,16 @@ class UI:
         self.turn.config(text=self.service.turn)
 
     def _handle_button_click_draw(self):
+        """Huolehtii kortin nostamisesta."""
         self.service.draw_a_card()
         self.update_view()
 
     def destroy_view(self):
+        """Tuhoaa näkymän."""
         self.frame.pack_forget()
 
     def playing_view(self):
+        """Näkymä, jossa pystyy pelaamaan kortteja."""
         self.turn = ttk.Label(self.frame, text="")
         self.turn.pack()
 
@@ -83,6 +99,7 @@ class UI:
         self.update_view()
 
     def choose_color_view(self):
+        """Näkymä, jossa pystyy valitsemaan seuraavaksi pelattavan värin."""
         self.turn = ttk.Label(self.frame, text="")
         self.turn.pack()
 
@@ -102,6 +119,7 @@ class UI:
         yellow.pack()
     
     def _handle_button_click_choose_color(self, button_text):
+        """Huolehtii värin valitsemisesta."""
         chosen_color = button_text
         self.service.choose_color(chosen_color)
         self.destroy_view()

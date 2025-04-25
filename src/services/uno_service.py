@@ -1,7 +1,19 @@
 import random
 
 class UnoService:
+    """Sovelluksen toiminnallisuuksista vastaava luokka."""
+
     def __init__(self):
+        """Pohjustaa sovelluslogiikasta vastaavan luokan.
+        
+        Args:
+            deck: Koko korttipakka
+            player1: Pelaajan 1 kortit
+            player2: Pelaajan 2 kortit
+            stack: Korttipinon päällimmäinen kortti
+            turn: Kertoo kenen vuoro on
+            actions: Erikoiskorttien toiminnot
+        """
         self.deck = []
         self.player1 = []
         self.player2 = []
@@ -10,6 +22,7 @@ class UnoService:
         self.actions = ["r", "s", "d", "wild", "wild draw four"]
 
     def create_deck(self):
+        """Luo korttipakan."""
         numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         colors = ["green", "red", "blue", "yellow"]
         for i in numbers:
@@ -27,16 +40,19 @@ class UnoService:
         random.shuffle(self.deck)
 
     def deal_cards(self):
+        """Jakaa kortit pelaajille."""
         self.player1 = self.deck[:7]
         self.deck = self.deck[7:]
         self.player2 = self.deck[:7]
         self.deck = self.deck[7:]
 
     def start_game(self):
+        """Huolehtii tarvittavista asioista ennen pelin alkua."""
         self.create_deck()
         self.deal_cards()
 
     def play_card(self, card):
+        """Kortin pelaaminen ja erikoiskortin tarkastus."""
         action_card = True
         if card=="":
             return
@@ -56,6 +72,7 @@ class UnoService:
                     self.continue_to_play(action_card, i)
 
     def draw_a_card(self):
+        """Kortin nostaminen pakasta."""
         if len(self.deck)>0:
             card = self.deck.pop()
             if self.turn == "player1":
@@ -66,10 +83,12 @@ class UnoService:
                 self.turn = "player1"
 
     def check_action_card(self, action_card, card):
+        """Tarkastaa onko kortti erikoiskortti."""
         if action_card:
             self.play_action_card(card)
 
     def play_action_card(self, card):
+        """Erikoiskorttien toimintojen toteutus."""
         if card[0] in ["r", "s"] or card == "wild":
             self.skip_turn()
         elif card[0] == "d":
@@ -93,22 +112,26 @@ class UnoService:
             self.skip_turn()
 
     def skip_turn(self):
+        """Vuoro ei vaihdu seuraavalle pelaajalle."""
         if self.turn == "player1":
             self.turn = "player2"
         else:
             self.turn = "player1"
 
     def check_colors(self, color):
+        """Tarkastus onko pelattavan kortin väri sama kuin pinossa olevan."""
         if color == self.stack[1]:
             return True
         return False
 
     def check_number(self, number):
+        """Tarkastus onko pelattavan kortin numero sama kuin pinossa olevan."""
         if number == self.stack[0] or self.stack in self.actions[3:]:
             return True
         return False
 
     def continue_to_play(self, action_card, i):
+        """Kortin pelaaminen."""
         if self.turn == "player1":
             if self.check_colors(i[1]) or self.check_number(i[0]) or i in self.actions[3:]:
                 self.stack = i
@@ -123,5 +146,6 @@ class UnoService:
                 self.check_action_card(action_card, i)
 
     def choose_color(self, color):
+        """Vaihdetaan haluttuun väriin."""
         self.stack = ("-", color)
         self.skip_turn()
