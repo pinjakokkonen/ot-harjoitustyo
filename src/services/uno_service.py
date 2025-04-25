@@ -56,13 +56,14 @@ class UnoService:
                     self.continue_to_play(action_card, i)
 
     def draw_a_card(self):
-        card = self.deck.pop()
-        if self.turn == "player1":
-            self.player1.append(card)
-            self.turn = "player2"
-        else:
-            self.player2.append(card)
-            self.turn = "player1"
+        if len(self.deck)>0:
+            card = self.deck.pop()
+            if self.turn == "player1":
+                self.player1.append(card)
+                self.turn = "player2"
+            else:
+                self.player2.append(card)
+                self.turn = "player1"
 
     def check_action_card(self, action_card, card):
         if action_card:

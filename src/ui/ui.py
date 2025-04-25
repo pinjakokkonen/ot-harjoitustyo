@@ -22,21 +22,15 @@ class UI:
 
         self.middle = ttk.LabelFrame(self.first_line, text="middle deck")
         self.middle.grid(row=0, column=0)
-        
-        self.player1 = ttk.LabelFrame(self.second_frame, text="player1")
-        self.player1.grid(row=0, column=0, padx=20, ipadx=20)
 
-        self.player2 = ttk.LabelFrame(self.second_frame, text="player2")
-        self.player2.grid(row=0, column=1, ipadx=20)
+        self.player = ttk.LabelFrame(self.second_frame, text="")
+        self.player.grid(row=0, column=0, padx=20, ipadx=20)
 
         self.middle_label = ttk.Label(self.middle, text="")
         self.middle_label.pack(pady=20)
 
-        self.player1_label = ttk.Label(self.player1, text="")
-        self.player1_label.pack(pady=20)
-
-        self.player2_label = ttk.Label(self.player2, text="")
-        self.player2_label.pack(pady=20)
+        self.player_label = ttk.Label(self.player, text="")
+        self.player_label.pack(pady=20)
 
     def _handle_button_click_play(self):
         entry = self._entry.get()
@@ -53,12 +47,17 @@ class UI:
     def update_view(self):
         self.middle_label.config(text=self.service.stack)
 
-        self.player1_label.config(text=self.service.player1)
-
-        self.player2_label.config(text=self.service.player2)
+        self.card_view()
+    
+    def card_view(self):
+        self.player.config(text=self.service.turn)
+        if self.service.turn == "player1":
+            self.player_label.config(text=self.service.player1)
+        else:
+            self.player_label.config(text=self.service.player2)
 
         self.turn.config(text=self.service.turn)
-    
+
     def _handle_button_click_draw(self):
         self.service.draw_a_card()
         self.update_view()
