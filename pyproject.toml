@@ -8,12 +8,14 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 invoke = "^2.2.0"
+python-dotenv = "^1.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
 coverage = "^7.8.0"
 pylint = "^3.3.6"
+pytest-dotenv = "^0.5.2"
 
 [build-system]
 requires = ["poetry-core"]

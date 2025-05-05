@@ -1,4 +1,5 @@
 import random
+from repositories.uno_repository import uno_repository
 
 class UnoService:
     """Sovelluksen toiminnallisuuksista vastaava luokka."""
@@ -14,12 +15,14 @@ class UnoService:
             turn: Kertoo kenen vuoro on
             actions: Erikoiskorttien toiminnot
         """
+        self.repository = uno_repository
         self.deck = []
         self.player1 = []
         self.player2 = []
         self.stack = []
         self.turn = "player1"
         self.actions = ["r", "s", "d", "wild", "wild draw four"]
+        self.win = False
 
     def create_deck(self):
         """Luo korttipakan."""
@@ -136,12 +139,18 @@ class UnoService:
             if self.check_colors(i[1]) or self.check_number(i[0]) or i in self.actions[3:]:
                 self.stack = i
                 self.player1.remove(i)
+                if self.check_winning(self.player1):
+                    self.win = True
+                    return
                 self.turn = "player2"
                 self.check_action_card(action_card, i)
         else:
             if self.check_colors(i[1]) or self.check_number(i[0]) or i in self.actions[3:]:
                 self.stack = i
                 self.player2.remove(i)
+                if self.check_winning(self.player2):
+                    self.win = True
+                    return
                 self.turn = "player1"
                 self.check_action_card(action_card, i)
 
@@ -149,3 +158,15 @@ class UnoService:
         """Vaihdetaan haluttuun väriin."""
         self.stack = ("-", color)
         self.skip_turn()
+
+    def check_winning(self, player):
+        if len(player)==0:
+            self.winner()
+            return True
+        return False
+
+    def winner(self):
+        self.repository.add_win(self.turn)
+
+    def find_charts(self):
+        return self.repository.find_wins()

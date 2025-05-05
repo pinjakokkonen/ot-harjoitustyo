@@ -46,7 +46,11 @@ class UI:
         """Huolehtii kortin pelaamisesta."""
         entry = self._entry.get()
         self.service.play_card(entry)
-        if entry == "wild" or entry == "wild draw four":
+        if self.service.win:
+            self.destroy_view()
+            charts = self.service.find_charts()
+            self.winning_view(charts)
+        elif entry == "wild" or entry == "wild draw four":
             self.destroy_view()
             self.view()
             self.choose_color_view()
@@ -126,3 +130,31 @@ class UI:
         self.view()
         self.playing_view()
         self.frame.pack()
+
+    def winning_view(self, charts):
+        wins1 = str(charts[0])
+        wins2 = str(charts[1])
+        self.frame = ttk.Frame(self._root)
+
+        charts = ttk.Label(self.frame, text="Wins", font=(60))
+        charts.pack(pady=40)
+
+        player1 = ttk.Label(self.frame, text="player1")
+        player1.pack()
+
+        player1_wins = ttk.Label(self.frame, text=wins1)
+        player1_wins.pack()
+
+        player2 = ttk.Label(self.frame, text="player2")
+        player2.pack()
+
+        player2_wins = ttk.Label(self.frame, text=wins2)
+        player2_wins.pack()
+
+        button = ttk.Button(self.frame, text="Play again", command=self._handle_button_click_play_again)
+        button.pack()
+
+        self.frame.pack(pady=20)
+
+    def _handle_button_click_play_again(self):
+        pass
