@@ -157,4 +157,5 @@ class UI:
         self.frame.pack(pady=20)
 
     def _handle_button_click_play_again(self):
-        pass
+        self.destroy_view()
+        self.start()
