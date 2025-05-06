@@ -1,3 +1,4 @@
+import random
 from repositories.uno_repository import uno_repository
 from .cards_service import CardsService
 
@@ -23,6 +24,7 @@ class UnoService:
         self.turn = "player1"
         self.actions = ["r", "s", "d", "wild", "wild draw four"]
         self.win = False
+        self.discard_pile = []
 
     def start_game(self):
         """Huolehtii tarvittavista asioista ennen pelin alkua."""
@@ -56,14 +58,16 @@ class UnoService:
 
     def draw_a_card(self):
         """Kortin nostaminen pakasta."""
-        if len(self.deck)>0:
-            card = self.deck.pop()
-            if self.turn == "player1":
-                self.player1.append(card)
-                self.turn = "player2"
-            else:
-                self.player2.append(card)
-                self.turn = "player1"
+        if len(self.deck)<=0:
+            if self.shuffle_cards():
+                return
+        card = self.deck.pop()
+        if self.turn == "player1":
+            self.player1.append(card)
+            self.turn = "player2"
+        else:
+            self.player2.append(card)
+            self.turn = "player1"
 
     def check_action_card(self, action_card, card):
         """Tarkastaa onko kortti erikoiskortti."""
@@ -117,6 +121,8 @@ class UnoService:
         """Kortin pelaaminen."""
         if self.turn == "player1":
             if self.check_colors(i[1]) or self.check_number(i[0]) or i in self.actions[3:]:
+                if self.stack[0]!="-":
+                    self.discard_pile.append(self.stack)
                 self.stack = i
                 self.player1.remove(i)
                 if self.check_winning(self.player1):
@@ -126,6 +132,8 @@ class UnoService:
                 self.check_action_card(action_card, i)
         else:
             if self.check_colors(i[1]) or self.check_number(i[0]) or i in self.actions[3:]:
+                if self.stack[0]!="-":
+                    self.discard_pile.append(self.stack)
                 self.stack = i
                 self.player2.remove(i)
                 if self.check_winning(self.player2):
@@ -136,6 +144,7 @@ class UnoService:
 
     def choose_color(self, color):
         """Vaihdetaan haluttuun väriin."""
+        self.discard_pile.append(self.stack)
         self.stack = ("-", color)
         self.skip_turn()
 
@@ -150,3 +159,12 @@ class UnoService:
 
     def find_charts(self):
         return self.repository.find_wins()
+
+    def shuffle_cards(self):
+        if not self.discard_pile:
+            self.win=True
+            return True
+        self.deck = self.discard_pile
+        random.shuffle(self.deck)
+        self.discard_pile = []
+        return False

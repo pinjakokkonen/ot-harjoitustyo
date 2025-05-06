@@ -78,6 +78,10 @@ class UI:
     def _handle_button_click_draw(self):
         """Huolehtii kortin nostamisesta."""
         self.service.draw_a_card()
+        if self.service.win:
+            self.destroy_view()
+            charts = self.service.find_charts()
+            self.winning_view(charts)
         self.update_view()
 
     def destroy_view(self):
