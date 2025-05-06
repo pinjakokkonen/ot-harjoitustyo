@@ -157,5 +157,6 @@ class UI:
         self.frame.pack(pady=20)
 
     def _handle_button_click_play_again(self):
+        self.service.win = False
         self.destroy_view()
         self.start()

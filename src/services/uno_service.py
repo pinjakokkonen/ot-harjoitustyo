@@ -1,5 +1,5 @@
-import random
 from repositories.uno_repository import uno_repository
+from .cards_service import CardsService
 
 class UnoService:
     """Sovelluksen toiminnallisuuksista vastaava luokka."""
@@ -24,35 +24,15 @@ class UnoService:
         self.actions = ["r", "s", "d", "wild", "wild draw four"]
         self.win = False
 
-    def create_deck(self):
-        """Luo korttipakan."""
-        numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-        colors = ["green", "red", "blue", "yellow"]
-        for i in numbers:
-            for j in colors:
-                self.deck.append((i,j))
-        random.shuffle(self.deck)
-        self.stack = self.deck.pop()
-
-        for i in self.actions:
-            if i in self.actions[:3]:
-                for j in colors:
-                    self.deck.append((i,j))
-            else:
-                self.deck.append(i)
-        random.shuffle(self.deck)
-
-    def deal_cards(self):
-        """Jakaa kortit pelaajille."""
-        self.player1 = self.deck[:7]
-        self.deck = self.deck[7:]
-        self.player2 = self.deck[:7]
-        self.deck = self.deck[7:]
-
     def start_game(self):
         """Huolehtii tarvittavista asioista ennen pelin alkua."""
-        self.create_deck()
-        self.deal_cards()
+        creating = CardsService()
+        self.deck = creating.create_deck()
+        self.stack = creating.set_stack()
+        dealing_cards = creating.deal_cards(self.deck)
+        self.deck = dealing_cards[0]
+        self.player1 = dealing_cards[1]
+        self.player2 = dealing_cards[2]
 
     def play_card(self, card):
         """Kortin pelaaminen ja erikoiskortin tarkastus."""
