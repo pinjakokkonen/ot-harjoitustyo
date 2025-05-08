@@ -1,5 +1,5 @@
-from tkinter import ttk
-from services.uno_service import UnoService
+from tkinter import ttk, StringVar
+from services.uno_service import UnoService, InvalidCardError
 
 class UI:
     """Sovelluksen käyttöliittymästä vastaava luokka."""
@@ -45,17 +45,28 @@ class UI:
     def _handle_button_click_play(self):
         """Huolehtii kortin pelaamisesta."""
         entry = self._entry.get()
-        self.service.play_card(entry)
-        if self.service.win:
-            self.destroy_view()
-            charts = self.service.find_charts()
-            self.winning_view(charts)
-        elif entry == "wild" or entry == "wild draw four":
-            self.destroy_view()
-            self.view()
-            self.choose_color_view()
-            self.update_view()
-            self.frame.pack()
+        try:
+            self.service.play_card(entry)
+            self._error_label.pack_forget()
+            played = True
+        except InvalidCardError:
+            self._error_variable.set("Invalid card, try again")
+            self._error_label.pack()
+            played = False
+
+        if played:
+            if self.service.win:
+                self.destroy_view()
+                charts = self.service.find_charts()
+                self.winning_view(charts)
+            elif entry == "wild" or entry == "wild draw four":
+                self.destroy_view()
+                self.view()
+                self.choose_color_view()
+                self.update_view()
+                self.frame.pack()
+            else:
+                self.update_view()
         else:
             self.update_view()
 
@@ -78,6 +89,7 @@ class UI:
     def _handle_button_click_draw(self):
         """Huolehtii kortin nostamisesta."""
         self.service.draw_a_card()
+        self._error_label.pack_forget()
         if self.service.win:
             self.destroy_view()
             charts = self.service.find_charts()
@@ -92,6 +104,14 @@ class UI:
         """Näkymä, jossa pystyy pelaamaan kortteja."""
         self.turn = ttk.Label(self.frame, text="")
         self.turn.pack()
+
+        self._error_variable = StringVar(self.frame)
+
+        self._error_label = ttk.Label(self.frame, textvariable=self._error_variable, foreground="red")
+
+        self._error_label.pack(padx=5, pady=5)
+
+        self._error_label.pack_forget()
 
         self._entry = ttk.Entry(self.frame)
         self._entry.pack()

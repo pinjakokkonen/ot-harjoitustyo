@@ -2,6 +2,10 @@ import random
 from repositories.uno_repository import uno_repository
 from .cards_service import CardsService
 
+
+class InvalidCardError(Exception):
+    pass
+
 class UnoService:
     """Sovelluksen toiminnallisuuksista vastaava luokka."""
 
@@ -40,7 +44,7 @@ class UnoService:
         """Kortin pelaaminen ja erikoiskortin tarkastus."""
         action_card = True
         if card=="":
-            return
+            raise InvalidCardError("Invalid card, try again")
         if card[0] not in self.actions:
             action_card = False
         if card not in self.actions[3:]:
@@ -51,10 +55,13 @@ class UnoService:
             for i in self.player1:
                 if i == card:
                     self.continue_to_play(action_card, i)
+                    return
         else:
             for i in self.player2:
                 if i == card:
                     self.continue_to_play(action_card, i)
+                    return
+        raise InvalidCardError("Invalid card, try again")
 
     def draw_a_card(self):
         """Kortin nostaminen pakasta."""
@@ -130,6 +137,7 @@ class UnoService:
                     return
                 self.turn = "player2"
                 self.check_action_card(action_card, i)
+                return
         else:
             if self.check_colors(i[1]) or self.check_number(i[0]) or i in self.actions[3:]:
                 if self.stack[0]!="-":
@@ -141,6 +149,8 @@ class UnoService:
                     return
                 self.turn = "player1"
                 self.check_action_card(action_card, i)
+                return
+        raise InvalidCardError("Invalid card, try again")
 
     def choose_color(self, color):
         """Vaihdetaan haluttuun väriin."""
