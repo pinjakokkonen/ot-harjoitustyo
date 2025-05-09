@@ -14,6 +14,7 @@ class CardsService:
         for i in numbers:
             for j in colors:
                 deck.append((i,j))
+                deck.append((i,j))
         random.shuffle(deck)
         self.stack = deck.pop()
 
@@ -23,7 +24,9 @@ class CardsService:
             if i in actions[:3]:
                 for j in colors:
                     deck.append((i,j))
+                    deck.append((i,j))
             else:
+                deck.append(i)
                 deck.append(i)
         random.shuffle(deck)
         return deck

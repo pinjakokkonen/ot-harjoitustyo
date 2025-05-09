@@ -8,7 +8,7 @@ class TestUnoService(unittest.TestCase):
 
     def test_start_game(self):
         self.uno_service.start_game()
-        self.assertEqual(len(self.uno_service.deck), 39)
+        self.assertEqual(len(self.uno_service.deck), 93)
 
     def test_play_card(self):
         self.uno_service.stack = ("1", "red")

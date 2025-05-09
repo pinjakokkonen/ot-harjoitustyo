@@ -7,7 +7,7 @@ class TestCardsService(unittest.TestCase):
 
     def test_create_deck(self):
         deck = self.cards_service.create_deck()
-        self.assertEqual(len(deck), 53)
+        self.assertEqual(len(deck), 107)
     
     def test_set_stack(self):
         stack = self.cards_service.set_stack()
