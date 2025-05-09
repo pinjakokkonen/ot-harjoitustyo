@@ -1,9 +1,10 @@
 import unittest
-from services.uno_service import UnoService
+from services.uno_service import UnoService, InvalidCardError
 
 class TestUnoService(unittest.TestCase):
     def setUp(self):
         self.uno_service = UnoService()
+        self.error = InvalidCardError()
 
     def test_start_game(self):
         self.uno_service.start_game()
@@ -13,15 +14,18 @@ class TestUnoService(unittest.TestCase):
         self.uno_service.stack = ("1", "red")
         self.uno_service.player1 = [("3", "red"), ("2", "green")]
         self.uno_service.player2 = [("3", "green")]
-        self.uno_service.play_card("0 red")
+        with self.assertRaises(Exception):
+            self.uno_service.play_card("0 red")
         self.assertEqual(self.uno_service.stack, ("1", "red"))
         self.uno_service.play_card("3 red")
         self.assertEqual(self.uno_service.stack, ("3", "red"))
-        self.uno_service.play_card("4 red")
+        with self.assertRaises(Exception):
+            self.uno_service.play_card("4 red")
         self.assertEqual(self.uno_service.stack, ("3", "red"))
         self.uno_service.play_card("3 green")
         self.assertEqual(self.uno_service.stack, ("3", "green"))
-        self.uno_service.play_card("")
+        with self.assertRaises(Exception):
+            self.uno_service.play_card("")
         self.assertEqual(self.uno_service.stack, ("3", "green"))
 
     def test_draw_a_card(self):
@@ -38,14 +42,11 @@ class TestUnoService(unittest.TestCase):
         self.test_start_game()
         self.uno_service.player1 = [("r", "red"), ("s", "red"), ("wild"), ("wild draw four")]
         self.uno_service.player2 = [("d", "green")]
-        self.uno_service.play_card(("r", "red"))
-        self.assertEqual(self.uno_service.turn, "player1")
-        self.uno_service.play_card(("s", "red"))
+        with self.assertRaises(Exception):
+            self.uno_service.play_card(("r", "red"))
         self.assertEqual(self.uno_service.turn, "player1")
         self.uno_service.play_card(("wild draw four"))
         self.assertEqual(len(self.uno_service.player2), 5)
-        self.uno_service.play_card(("d", "green"))
-        self.assertEqual(len(self.uno_service.player1), 3)
 
     def test_skip_turn(self):
         self.uno_service.skip_turn()

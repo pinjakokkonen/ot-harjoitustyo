@@ -1,7 +1,7 @@
 import unittest
 from services.cards_service import CardsService
 
-class TestUnoService(unittest.TestCase):
+class TestCardsService(unittest.TestCase):
     def setUp(self):
         self.cards_service = CardsService()
 
