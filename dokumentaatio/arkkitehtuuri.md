@@ -16,7 +16,7 @@ Käyttöliittymä muodostuu kolmesta eri näkymästä:
 - Värin valitseminen
 - Voittotilastot
 
-Yksi näkymistä on aina kerrallaan esillä. [UI](../src/ui/ui.py)-luokka huolehtii näkymän näyttämisestä ja käyttöliittymä on pyritty eristämään sovelluslogiikasta. Se kutsuu vain [UnoService](../src/service)-luokkaa.
+Yksi näkymistä on aina kerrallaan esillä. [UI](../src/ui/ui.py)-luokka huolehtii näkymän näyttämisestä ja käyttöliittymä on pyritty eristämään sovelluslogiikasta. Se kutsuu vain [UnoService](../src/services/uno_service.py)-luokkaa.
 
 Kun kortteja pelataan renderöi ui näkymän uudelleen pelattujen korttien mukaan, joiden tiedot on saatu sovelluslogiikalta.
 
@@ -43,7 +43,7 @@ Luokka noudattaa Repository-suunnittelumallia ja se on tarvittaessa mahdollista 
 
 ### Tiedosto
 
-Sovelluksen juureen sijoitettu konfiguraatiotiedosto [.env](../.env) määrittää tiedoston nimen.
+Sovelluksen juureen voi halutessaan luoda konfiguraatiotiedoston _.env_ ja määrittää siellä minkä nimiseen tiedostoon tiedot tallentuu. Ohjeet tähän löytyy [käyttöohjeista](./kayttoohje.md).
 
 Tulokset tallennetaan SQLite-tietokannan tauluun Users, joka alustetaan [initialize_database.py](../src/initialize_database.py)-tiedostossa.
 
@@ -52,6 +52,8 @@ Tulokset tallennetaan SQLite-tietokannan tauluun Users, joka alustetaan [initial
 Sekvenssikaavioina kuvattu pelissä olevia toimintoja.
 
 ### Pelin aloittaminen
+
+Kun sovellus avataan etenee tapahtumat seuraavasti:
 
 ```mermaid
 sequenceDiagram
@@ -74,7 +76,11 @@ sequenceDiagram
   UI->>UI: cards_view()
 ```
 
+Käyttöliittymä kutsuu UnoService-luokan metodia start. Sovelluslogiikka huolehtii pelin alustamisen vaativista tehtävistä. Kun kaikki on valmista luo käyttöliittymä pelinäkymän.
+
 ### Kortin pelaaminen
+
+Kun käyttäjä haluaa pelata kortin pois, valitsee hän ensin minkä kortin ja sen jälkeen painaa nappia _Play card_, etenee sovelluksen kontrolli seuraavasti:
 
 ```mermaid
 sequenceDiagram
@@ -93,7 +99,11 @@ sequenceDiagram
   UI->>UI: update_view()
 ```
 
+Tapahtumankäsittelijä kutsuu sovelluslogiikan metodia play_card antaen parametriksi pelattavan kortin. Sovelluslogiikka tekee tarkistukset pystytäänkö kortti pelaamaan sekä onko kyseessä erikoiskortti. Samalla tarkastetaan onko peli voitettu. Käyttöliittymä päivittää näkymän, kun pelataan sallittu kortti ja vuorovaihtuu, jos kyseessä ei ole jokin tietty erikoiskortti.
+
 ### Kortin nostaminen
+
+Kun käyttäjä haluaa nostaa, kortin painaa hän nappia _Draw a card_ ja sovelluksen kontrolli etenee seuraavasti:
 
 ```mermaid
 sequenceDiagram
@@ -106,7 +116,11 @@ sequenceDiagram
   UI->>UI: update_view()
 ```
 
+Tapahtumankäsittelijä kutsuu sovelluslogiikan metodia draw_a_card. Sovelluslogiikka nostaa pakasta pelaajalle uuden kortin ja pakan ollessa loppunut sekoittaa kortit vielä uudelleen ennen nostoa. Käyttöliittymä päivittää näkymän seuraavan pelaajan vuoroon.
+
 ### Värin valitseminen
+
+Kun käyttäjä haluaa valita seuraavaksi pelattavan värin klikataan värin nimistä nappia, jolloin sovelluksen kontrolli etenee seuraavasti:
 
 ```mermaid
 sequenceDiagram
@@ -123,3 +137,9 @@ sequenceDiagram
   UI->>UI: update_view()
   UI->>UI: card_view()
 ```
+
+Tapahtumankäsittelijä kutsuu sovelluslogiikan metodia choose_color antaen parametriksi valitun värin. Sovelluslogiikka vaihtaa värin haluttuun ja käyttöliittymä luo uuden näkymän seuraavalle pelaajalle.
+
+### Muut toiminnallisuudet
+
+Sama periaate toistuu muissakin toiminnallisuuksissa. Käyttöliittymä kutsuu tapahtumakäsittelijän kautta sovelluslogiikkaa, joka vastaa tarvittavan toiminnallisuuden toteuttamisesta. Tämän jälkeen käyttöliittymä tarvittaessa päivittyy.

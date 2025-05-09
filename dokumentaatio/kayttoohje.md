@@ -4,10 +4,10 @@ Projektin saa käyttöön lataamalla sen lähdekoodi viimeisimmän [releasen](ht
 
 ## Konfigurointi
 
-Jos tallennukseen osallistuvan tiedoston nimeä haluaa konfiguroida, onnistuu se _.env_-tiedostossa. Tiedostot luodaan hakemistoon _data_ ja _.env_-tiedoston sisältö näyttää seuraavalta:
+Jos tallennukseen osallistuvan tiedoston nimeä haluaa konfiguroida, onnistuu se luomalla _.env_ niminen tiedosto. Tiedosto luodaan hakemistoon _data_ ja _.env_-tiedoston sisältö voi näyttää seuraavalta:
 
 ```
-DATABASE_FILENAME=database.sqlite
+DATABASE_FILENAME=[tiedoston nimi].sqlite
 ```
 
 ## Ohjelman käynnistäminen
