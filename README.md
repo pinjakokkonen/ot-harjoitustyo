@@ -1,12 +1,12 @@
 # Ohjelmistotekniikka, harjoitustyö
 
-Sovellus on **UNO** *korttipeli*, jota pystyy pelaamaan kaksi käyttäjää samalta näytöltä. 
+Sovellus on **UNO** *korttipeli*, jota pystyy pelaamaan kaksi käyttäjää samalta näytöltä. Pelissä on käytössä normaalit UNO:n säännöt.
 
 ## Releases
 
-[viikon 5 release](https://github.com/pinjakokkonen/ot-harjoitustyo/releases/tag/viikko5)
-
-[viikon 6 release](https://github.com/pinjakokkonen/ot-harjoitustyo/releases/tag/viikko6)
+- [viikon 5 release](https://github.com/pinjakokkonen/ot-harjoitustyo/releases/tag/viikko5)
+- [viikon 6 release](https://github.com/pinjakokkonen/ot-harjoitustyo/releases/tag/viikko6)
+- [loppupalautus](https://github.com/pinjakokkonen/ot-harjoitustyo/releases/tag/loppupalautus)
 
 ## Dokumentaatio
 
@@ -15,6 +15,8 @@ Sovellus on **UNO** *korttipeli*, jota pystyy pelaamaan kaksi käyttäjää sama
 [arkkitehtuurikuvaus](https://github.com/pinjakokkonen/ot-harjoitustyo/blob/main/dokumentaatio/arkkitehtuuri.md)
 
 [käyttöohje](https://github.com/pinjakokkonen/ot-harjoitustyo/blob/main/dokumentaatio/kayttoohje.md)
+
+[testausdokumentti](https://github.com/pinjakokkonen/ot-harjoitustyo/blob/main/dokumentaatio/testaus.md)
 
 [työaikakirjanpito](https://github.com/pinjakokkonen/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
 
@@ -28,7 +30,13 @@ Sovellus on **UNO** *korttipeli*, jota pystyy pelaamaan kaksi käyttäjää sama
 poetry install
 ```
 
-2. Käynnistä sovellus komennolla:
+2. Suorita vaadittavat alustustoimenpiteet komennolla:
+
+```bash
+poetry run invoke build
+```
+
+3. Käynnistä sovellus komennolla:
 
 ```bash
 poetry run invoke start

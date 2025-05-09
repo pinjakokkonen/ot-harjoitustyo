@@ -18,4 +18,10 @@
 |24.4.  | 1 | arkkitehtuurikuvauksen jatkamista |
 |25.4.  | 1 | käyttöliittymässä näkyy vain pelaajan omat kortit |
 |       | 3 | docstring dokumentointi, testaus ja muu viimeistely |
-| yht   | 39| |
+|5.5.   | 3 | tietokanta valmiiksi |
+|6.5.   | 2 | käyttöohjeen viimeistelyä, pelaa uudelleen nappi, koodin refaktorointi |
+|       | 1 | korttipakan sekoitus |
+|7.5.   | 4 | arkkitehtuurikuvaus, testaus |
+|8.5.   | 3 | virheiden käsittely, testaus |
+|9.5.   | 2 | testausdokumentti, docstring dokumentointi, viimeistely |
+| yht   | 52| |
