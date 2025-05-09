@@ -9,7 +9,6 @@ class UI:
 
         Args:
             root: Käyttöliittymän alustus
-            service: UnoService luokkaan viittaaminen
         """
         self._root = root
         self.service = UnoService()
@@ -156,6 +155,7 @@ class UI:
         self.frame.pack()
 
     def winning_view(self, charts):
+        """Voittotilasto näkymä."""
         wins1 = str(charts[0])
         wins2 = str(charts[1])
         self.frame = ttk.Frame(self._root)

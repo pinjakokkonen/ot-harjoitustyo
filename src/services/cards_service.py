@@ -7,7 +7,11 @@ class CardsService:
         self.stack = []
 
     def create_deck(self):
-        """Luo korttipakan."""
+        """Luo korttipakan.
+        
+        Returns:
+            Palauttaa valmiin korttipakan.
+        """
         deck = []
         numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
         colors = ["green", "red", "blue", "yellow"]
@@ -32,7 +36,11 @@ class CardsService:
         return deck
 
     def set_stack(self):
-        """Palauttaa keskipakan päällimmäisen kortin."""
+        """Asettaa peliin keskipakan.
+
+        Returns:
+            Palauttaa keskipakan päällimmäisen kortin.
+        """
         return self.stack
 
     def deal_cards(self, deck):
@@ -40,6 +48,9 @@ class CardsService:
         
         Args:
             deck: Koko korttipakka
+
+        Returns:
+            Palauttaa tuplena korttipakan sekä molempien pelaajien käsikortit.
         """
         player1 = deck[:7]
         deck = deck[7:]

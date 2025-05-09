@@ -7,19 +7,19 @@ class InvalidCardError(Exception):
     pass
 
 class UnoService:
-    """Sovelluksen toiminnallisuuksista vastaava luokka."""
+    """Sovelluksen toiminnallisuuksista vastaava luokka.
+    
+    Attributes:
+        deck: Koko korttipakka
+        player1: Pelaajan 1 kortit
+        player2: Pelaajan 2 kortit
+        stack: Korttipinon päällimmäinen kortti
+        turn: Kertoo kenen vuoro on
+        actions: Erikoiskorttien toiminnot
+    """
 
     def __init__(self):
-        """Pohjustaa sovelluslogiikasta vastaavan luokan.
-        
-        Args:
-            deck: Koko korttipakka
-            player1: Pelaajan 1 kortit
-            player2: Pelaajan 2 kortit
-            stack: Korttipinon päällimmäinen kortti
-            turn: Kertoo kenen vuoro on
-            actions: Erikoiskorttien toiminnot
-        """
+        """Pohjustaa sovelluslogiikasta vastaavan luokan."""
         self.repository = uno_repository
         self.deck = []
         self.player1 = []
@@ -41,7 +41,11 @@ class UnoService:
         self.player2 = dealing_cards[2]
 
     def play_card(self, card):
-        """Kortin pelaaminen ja erikoiskortin tarkastus."""
+        """Kortin pelaaminen ja erikoiskortin tarkastus.
+        
+        Args:
+            card: Pelattava kortti
+        """
         action_card = True
         if card=="":
             raise InvalidCardError("Invalid card, try again")
@@ -77,12 +81,21 @@ class UnoService:
             self.turn = "player1"
 
     def check_action_card(self, action_card, card):
-        """Tarkastaa onko kortti erikoiskortti."""
+        """Tarkastaa onko kortti erikoiskortti.
+        
+        Args:
+            action_card: Kertoo onko kortti erikoiskortti
+            card: Kyseessä oleva kortti
+        """
         if action_card:
             self.play_action_card(card)
 
     def play_action_card(self, card):
-        """Erikoiskorttien toimintojen toteutus."""
+        """Erikoiskorttien toimintojen toteutus.
+        
+        Args:
+            card: Pelattava kortti
+        """
         if card[0] in ["r", "s"] or card == "wild":
             self.skip_turn()
         elif card[0] == "d":
@@ -113,19 +126,38 @@ class UnoService:
             self.turn = "player1"
 
     def check_colors(self, color):
-        """Tarkastus onko pelattavan kortin väri sama kuin pinossa olevan."""
+        """Tarkastus onko pelattavan kortin väri sama kuin pinossa olevan.
+        
+        Args:
+            color: Kortin väri
+
+        Returns:
+            Palauttaa onko väri sama vai eri kuin keskipakassa olevan kortin.
+        """
         if color == self.stack[1]:
             return True
         return False
 
     def check_number(self, number):
-        """Tarkastus onko pelattavan kortin numero sama kuin pinossa olevan."""
+        """Tarkastus onko pelattavan kortin numero sama kuin pinossa olevan.
+        
+        Args:
+            number: Kortin arvo
+        
+        Returns:
+            Palauttaa onko arvo sama kuin keskipakassa olevan kortin.
+        """
         if number == self.stack[0] or self.stack in self.actions[3:]:
             return True
         return False
 
     def continue_to_play(self, action_card, i):
-        """Kortin pelaaminen."""
+        """Kortin pelaaminen.
+        
+        Args:
+            action_card: Kertoo onko kortti erikoiskortti
+            i: Pelattava kortti
+        """
         if self.turn == "player1":
             if self.check_colors(i[1]) or self.check_number(i[0]) or i in self.actions[3:]:
                 if self.stack[0]!="-":
@@ -153,24 +185,47 @@ class UnoService:
         raise InvalidCardError("Invalid card, try again")
 
     def choose_color(self, color):
-        """Vaihdetaan haluttuun väriin."""
+        """Vaihdetaan haluttuun väriin.
+        
+        Args:
+            color: Väri, johon halutaan vaihtaa
+        """
         self.discard_pile.append(self.stack)
         self.stack = ("-", color)
         self.skip_turn()
 
     def check_winning(self, player):
+        """Tarkastaa onko peli päättynyt.
+        
+        Args:
+            player: Pelaaja kenen vuoro oli
+        
+        Returns:
+            Palauttaa onko voittaja selvinnyt.
+        """
         if len(player)==0:
             self.winner()
             return True
         return False
 
     def winner(self):
+        """Lisää voiton."""
         self.repository.add_win(self.turn)
 
     def find_charts(self):
+        """Hakee voittotilastot.
+        
+        Returns:
+            Palauttaa pelattujen pelien tilastot.
+        """
         return self.repository.find_wins()
 
     def shuffle_cards(self):
+        """Sekoittaa pois pelatut kortit.
+        
+        Returns:
+            Palauttaa jatketaanko pelaamista vai ei.
+        """
         if not self.discard_pile:
             self.win=True
             return True
