@@ -24,4 +24,5 @@
 |7.5.   | 4 | arkkitehtuurikuvaus, testaus |
 |8.5.   | 3 | virheiden käsittely, testaus |
 |9.5.   | 2 | testausdokumentti, docstring dokumentointi, viimeistely |
-| yht   | 52| |
+|11.5.  | 1 | viimeistely |
+| yht   | 55| |

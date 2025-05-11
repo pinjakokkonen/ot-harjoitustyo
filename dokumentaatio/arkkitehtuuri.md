@@ -143,3 +143,10 @@ Tapahtumankäsittelijä kutsuu sovelluslogiikan metodia choose_color antaen para
 ### Muut toiminnallisuudet
 
 Sama periaate toistuu muissakin toiminnallisuuksissa. Käyttöliittymä kutsuu tapahtumakäsittelijän kautta sovelluslogiikkaa, joka vastaa tarvittavan toiminnallisuuden toteuttamisesta. Tämän jälkeen käyttöliittymä tarvittaessa päivittyy.
+
+
+## Ohjelman rakenteeseen jääneet heikkoudet
+
+### Sovelluslogiikka
+
+UnoService-luokkaan on jäänyt muutama heikkous liittyen attribuuttien liialliseen määrään ja liian moneen lausekkeeseen, joista pylint huomauttaa.

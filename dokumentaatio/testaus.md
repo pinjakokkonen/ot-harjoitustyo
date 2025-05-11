@@ -10,7 +10,7 @@ Sovelluslogiikkaa testaavat luokat TestUnoService ja TestCardsService.
 
 ### Testauskattavuus
 
-Käyttöliittymää huomioimatta sovelluksen haarautumakattavuus on 74%
+Käyttöliittymää huomioimatta sovelluksen haarautumakattavuus on 72%
 
 ![Testikattavuus](./kuvat/testauskattavuus.png)
 

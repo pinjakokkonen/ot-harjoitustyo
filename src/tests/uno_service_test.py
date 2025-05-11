@@ -1,9 +1,20 @@
 import unittest
 from services.uno_service import UnoService, InvalidCardError
 
+class FakeUnoRepository:
+    def __init__(self):
+        self.users = {"player1": 0, "player2": 0}
+
+    def find_wins(self):
+        return self.users
+
+    def add_win(self, user):
+        wins = self.users[user]
+        self.users[user]=wins+1
+
 class TestUnoService(unittest.TestCase):
     def setUp(self):
-        self.uno_service = UnoService()
+        self.uno_service = UnoService(FakeUnoRepository())
         self.error = InvalidCardError()
 
     def test_start_game(self):
@@ -49,9 +60,9 @@ class TestUnoService(unittest.TestCase):
         self.assertEqual(len(self.uno_service.player2), 5)
 
     def test_skip_turn(self):
-        self.uno_service.skip_turn()
+        self.uno_service._skip_turn()
         self.assertEqual(self.uno_service.turn, "player2")
-        self.uno_service.skip_turn()
+        self.uno_service._skip_turn()
         self.assertEqual(self.uno_service.turn, "player1")
 
     def test_choose_color(self):
